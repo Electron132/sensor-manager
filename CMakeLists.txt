@@ -4,4 +4,9 @@ project(sensor_manager)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(sensor_manager
-        src/main.cpp)
+        src/main.cpp
+        include/Sensor.h
+        src/Sensor.cpp
+        src/SensorManager.cpp
+        include/SensorManager.h
+)
