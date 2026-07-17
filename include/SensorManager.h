@@ -14,5 +14,10 @@ void sensorsInit();
 void sensorsLoop();
 void sensorsAdd();
 int foundid(int id, const std::vector<m_Sensor> &sensors);
+void sensorsupgrade(int i);
+void sensoradd();
+void sensorprint();
+void sensorupdate();
+void sensorerase();
 
 #endif //SENSORMANAGER_H
