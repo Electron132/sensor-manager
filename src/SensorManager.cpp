@@ -137,3 +137,90 @@ int foundid(const int id, const std::vector<m_Sensor> &sensors) {
     }
     return -1;
 }
+
+void sensorsupgrade(int i) {
+    int command;
+    std::cout << "press 1 to change data" << std::endl;
+    std::cout << "press 2 to change active" << std::endl;
+    std::cout << "press 3 to change label" << std::endl;
+    std::cin >> command;
+    switch (command) {
+        case 1: {
+            double data;
+            std::cin >> data;
+            sensors[i].sensor.data = data;
+            std::cout << "data changed" << std::endl;
+            break;
+        }
+        case 2: {
+            bool active;
+            std::cin >> active;
+            sensors[i].sensor.active = active;
+            std::cout << "active changed" << std::endl;
+            break;
+        }
+        case 3: {
+            std::string label;
+            std::cin >> label;
+            sensors[i].sensor.label = label;
+            std::cout << "label changed" << std::endl;
+            break;
+        }
+        default: {
+            std::cout << "invalid command" << std::endl;
+        }
+    }
+}
+
+void sensoradd() {
+    sensorsAdd();
+    std::cout << "--------------------------------" << std::endl;
+    std::cout << "success" << std::endl;
+    sensors.back().printInfo();
+}
+
+void sensorprint() {
+    int input_id;
+    std::cout << "input ID:" << std::endl;
+    std::cin >> input_id;
+    int i = foundid(input_id, sensors);
+    if (i == -1) {
+        std::cout << "id not found" << std::endl;
+    }
+    else {
+        sensors[i].printInfo();
+    }
+}
+
+void sensorupdate() {
+    int input_id;
+    std::cout << "input ID:" << std::endl;
+    std::cin >> input_id;
+    int i = foundid(input_id, sensors);
+    if (i == -1) {
+        std::cout << "id not found" << std::endl;
+    }
+    else {
+        sensorsupgrade(i);
+    }
+}
+
+void sensorerase() {
+    int inputid;
+    std::cout << "enter the sensor id" << std::endl;
+    std::cin >> inputid;
+    int i = foundid(inputid,sensors);
+    if (i== -1) {
+        std::cout << "sensor not found" << std::endl;
+    }
+    else {
+        std::cout << "Are you sure?" << std::endl;
+        bool fl = false;
+        std::cin >> fl;
+        if (fl == true) {
+            auto v = sensors.begin()+i;
+            sensors.erase(v);
+            std::cout << "sensor deleted" << std::endl;
+        }
+    }
+}

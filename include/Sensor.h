@@ -41,3 +41,4 @@ public:
 std::istream& operator>>(std::istream& is, SensorType& type);
 
 #endif //SENSOR_H
+
