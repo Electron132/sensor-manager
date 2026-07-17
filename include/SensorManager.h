@@ -13,5 +13,6 @@ inline std::vector<m_Sensor> sensors;
 void sensorsInit();
 void sensorsLoop();
 void sensorsAdd();
+int foundid(int id, const std::vector<m_Sensor> &sensors);
 
 #endif //SENSORMANAGER_H

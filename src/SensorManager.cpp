@@ -128,3 +128,12 @@ void sensorsAdd() {
     std::cout << std::endl;
     sensors.emplace_back(tempSensor);
 }
+
+int foundid(const int id, const std::vector<m_Sensor> &sensors) {
+    for (int i = 0; i < sensors.size(); ++i) {
+        if (id==sensors[i].sensor.id) {
+            return i;
+        }
+    }
+    return -1;
+}
