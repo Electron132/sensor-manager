@@ -8,7 +8,7 @@
 #include <string>
 
 
-void sensorsInit() {
+void SensorManager::initialize() {
     struct Sensor sensor1={
         1,
         "DS18B20",
@@ -51,7 +51,7 @@ void sensorsInit() {
     sensors.emplace_back(sensor3);
 }
 
-void sensorsLoop() {
+void SensorManager::showAllSensors() const {
     if (sensors.empty()) {
         std::cout << "No sensors available.\n";
     } else {
@@ -61,8 +61,7 @@ void sensorsLoop() {
     }
 }
 
-
-void sensorsAdd() {
+void SensorManager::addsensor() {
     struct Sensor tempSensor={};
     std::cout << "input:" << std::endl;
 
@@ -129,7 +128,7 @@ void sensorsAdd() {
     sensors.emplace_back(tempSensor);
 }
 
-int foundid(const int id, const std::vector<m_Sensor> &sensors) {
+int SensorManager::findSensor(const int id) {
     for (int i = 0; i < sensors.size(); ++i) {
         if (id==sensors[i].sensor.id) {
             return i;
@@ -138,7 +137,7 @@ int foundid(const int id, const std::vector<m_Sensor> &sensors) {
     return -1;
 }
 
-void sensorsupgrade(int i) {
+void SensorManager::upgradeSensor(int i) {
     int command;
     std::cout << "press 1 to change data" << std::endl;
     std::cout << "press 2 to change active" << std::endl;
@@ -172,18 +171,18 @@ void sensorsupgrade(int i) {
     }
 }
 
-void sensoradd() {
-    sensorsAdd();
+void SensorManager::addSensor() {
+    SensorManager::addsensor();
     std::cout << "--------------------------------" << std::endl;
     std::cout << "success" << std::endl;
     sensors.back().printInfo();
 }
 
-void sensorprint() {
+void SensorManager::printSensor() {
     int input_id;
     std::cout << "input ID:" << std::endl;
     std::cin >> input_id;
-    int i = foundid(input_id, sensors);
+    int i = findSensor(input_id);
     if (i == -1) {
         std::cout << "id not found" << std::endl;
     }
@@ -192,24 +191,24 @@ void sensorprint() {
     }
 }
 
-void sensorupdate() {
+void SensorManager::updateSensor() {
     int input_id;
     std::cout << "input ID:" << std::endl;
     std::cin >> input_id;
-    int i = foundid(input_id, sensors);
+    int i = findSensor(input_id);
     if (i == -1) {
         std::cout << "id not found" << std::endl;
     }
     else {
-        sensorsupgrade(i);
+        upgradeSensor(i);
     }
 }
 
-void sensorerase() {
+void SensorManager::eraseSensor() {
     int inputid;
     std::cout << "enter the sensor id" << std::endl;
     std::cin >> inputid;
-    int i = foundid(inputid,sensors);
+    int i = findSensor(inputid);
     if (i== -1) {
         std::cout << "sensor not found" << std::endl;
     }
@@ -221,6 +220,60 @@ void sensorerase() {
             auto v = sensors.begin()+i;
             sensors.erase(v);
             std::cout << "sensor deleted" << std::endl;
+        }
+    }
+}
+
+void SensorManager::run() {
+    int mode;
+    initialize();
+    while (true) {
+        std::cout << "what are you doing?" << std::endl;
+        std::cout << "press 1 to add sensor" << std::endl;
+        std::cout << "press 2 to find sensor" << std::endl;
+        std::cout << "press 3 to upgrade sensor" << std::endl;
+        std::cout << "press 4 to erase sensor" << std::endl;
+        std::cout << "press 5 to show all sensors" << std::endl;
+        std::cout << "press 0 to exit" << std::endl;
+        std::cin >> mode;
+        switch (mode){
+            case 1:{
+                addSensor();
+                std::cin.get();
+                break;
+            }
+            case 2: {
+                printSensor();
+                std::cin.get();
+                break;
+            }
+            case 3: {
+                updateSensor();
+                std::cin.get();
+                break;
+            }
+            case 4: {
+                eraseSensor();
+                std::cin.get();
+                break;
+            }
+            case 5: {
+                showAllSensors();
+                std::cin.get();
+                break;
+            }
+            case 0: {
+                std::cout << "exit..." << std::endl;
+                std::cin.get();
+                break;
+            }
+            default:{
+                std::cout << "Unknown input." << std::endl;
+                break;
+            }
+        }
+        if (!mode) {
+            break;
         }
     }
 }

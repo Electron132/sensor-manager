@@ -4,20 +4,26 @@
 
 #ifndef SENSORMANAGER_H
 #define SENSORMANAGER_H
-#include "../include/SensorManager.h"
-#include "../include/Sensor.h"
-#include "vector"
 
-inline std::vector<m_Sensor> sensors;
+#include "Sensor.h"
+#include <vector>
 
-void sensorsInit();
-void sensorsLoop();
-void sensorsAdd();
-int foundid(int id, const std::vector<m_Sensor> &sensors);
-void sensorsupgrade(int i);
-void sensoradd();
-void sensorprint();
-void sensorupdate();
-void sensorerase();
+class SensorManager {
+    private:
+    std::vector<m_Sensor> sensors;
+    void addsensor();
+    public:
+    void initialize();
+    void addSensor();
+    int findSensor(const int id);
+    void printSensor();
+    void upgradeSensor(int i);
+    void updateSensor();
+    void eraseSensor();
+    void showAllSensors() const;
+    void run();
+};
+
+
 
 #endif //SENSORMANAGER_H
